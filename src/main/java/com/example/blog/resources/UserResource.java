@@ -1,10 +1,11 @@
 package com.example.blog.resources;
 
 import com.example.blog.domain.User;
+import com.example.blog.repository.UserRepository;
+import com.example.blog.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,14 +15,29 @@ import java.util.List;
 @RequestMapping(value = "/users")
 public class UserResource {
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<User>> findAll() {
-        User maria = new User(1L, "Maria Brown", "maria@gmail.com");
-        User alex = new User(2L, "Alex Green", "alex@gmail.com");
-        List<User> users = new ArrayList<>(Arrays.asList(maria, alex));
-        System.out.println(users);
-        return ResponseEntity.ok().body(users);
+       try {
+           var data = userService.findAll();
+           return ResponseEntity.ok().body(data);
+       }
+       catch (Exception e) {
+           return ResponseEntity.notFound().build();
+       }
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findById(@PathVariable String id) {
+        try {
+            var data = userService.findById(id);
+            return ResponseEntity.ok().body(data);
+        }
+        catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
