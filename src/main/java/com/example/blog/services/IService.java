@@ -9,5 +9,8 @@ public interface IService<T> {
 
     T findById(@PathVariable String id);
     List<T> findAll();
+    T insert(@RequestBody T t);
+    T update(@RequestBody T t);
+    void delete(@PathVariable String id);
 
 }
