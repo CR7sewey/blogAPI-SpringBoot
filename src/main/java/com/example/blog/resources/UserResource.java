@@ -1,6 +1,7 @@
 package com.example.blog.resources;
 
 import com.example.blog.domain.User;
+import com.example.blog.domain.dto.UserDTO;
 import com.example.blog.repository.UserRepository;
 import com.example.blog.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,15 @@ public class UserResource {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserDTO>> findAll() {
        try {
            var data = userService.findAll();
-           return ResponseEntity.ok().body(data);
+           var dataDTO = data.stream().map(user -> new UserDTO(
+                   user.getId(),
+                   user.getName(),
+                   user.getEmail()
+           )).toList();
+           return ResponseEntity.ok().body(dataDTO);
        }
        catch (Exception e) {
            return ResponseEntity.notFound().build();
@@ -30,10 +36,15 @@ public class UserResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findById(@PathVariable String id) {
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
         try {
             var data = userService.findById(id);
-            return ResponseEntity.ok().body(data);
+            UserDTO userDTO = new UserDTO(
+                    data.getId(),
+                    data.getName(),
+                    data.getEmail()
+            );
+            return ResponseEntity.ok().body(userDTO);
         }
         catch (Exception e) {
             return ResponseEntity.notFound().build();

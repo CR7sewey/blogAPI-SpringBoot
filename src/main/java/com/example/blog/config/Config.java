@@ -21,9 +21,9 @@ public class Config implements CommandLineRunner {
 
         userRepository.deleteAll();
 
-        User user1 = new User(null, "John", "Doe" );
-        User user2 = new User(null, "Jane", "Doe" );
-        User user3 = new User(null, "Marie", "Smith" );
+        User user1 = new User(null, "John", "Doe", "123" );
+        User user2 = new User(null, "Jane", "Doe", "123" );
+        User user3 = new User(null, "Marie", "Smith", "123" );
 
         userRepository.save(user1);
         userRepository.save(user2);
