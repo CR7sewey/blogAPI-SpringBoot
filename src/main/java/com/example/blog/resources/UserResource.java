@@ -1,5 +1,6 @@
 package com.example.blog.resources;
 
+import com.example.blog.domain.Post;
 import com.example.blog.domain.User;
 import com.example.blog.domain.dto.UserDTO;
 import com.example.blog.repository.UserRepository;
@@ -76,6 +77,13 @@ public class UserResource {
     public ResponseEntity<UserDTO> delete(@PathVariable String id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> getAllPosts(@PathVariable String id) {
+        var user = userService.findById(id);
+        List<Post> posts = user.getPosts();
+        return ResponseEntity.ok().body(posts);
     }
 
 }
