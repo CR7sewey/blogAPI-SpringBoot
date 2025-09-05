@@ -1,9 +1,12 @@
 package com.example.blog.domain.dto;
 
+import com.example.blog.domain.Post;
 import com.example.blog.domain.User;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class UserDTO implements Serializable {
@@ -13,6 +16,7 @@ public class UserDTO implements Serializable {
     private String id;
     private String name;
     private String email;
+
 
     public UserDTO() {
         super();
