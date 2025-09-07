@@ -9,4 +9,12 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PostRepository extends MongoRepository<Post, String> {
+
+    List<Post> findByTitleIgnoreCase(String title); //
+
+    /*
+    Referências:
+        https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/
+        https://docs.spring.io/spring-data/data-document/docs/current/reference/html/
+     */
 }

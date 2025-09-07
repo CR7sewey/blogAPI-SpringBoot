@@ -34,4 +34,11 @@ public class PostResource {
         return post.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/titlesearch")
+    public ResponseEntity<List<Post>> getByTitle(@RequestParam String title) {
+        var url = Utils.urlDecoder(title);
+        List<Post> posts = postRepository.findByTitleIgnoreCase(url);
+        return ResponseEntity.ok().body(posts);
+    }
+
 }
