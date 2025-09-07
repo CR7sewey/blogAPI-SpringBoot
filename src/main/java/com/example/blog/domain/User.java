@@ -1,5 +1,6 @@
 package com.example.blog.domain;
 
+import com.example.blog.domain.dto.CommentDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,6 +21,8 @@ public class User implements Serializable {
 
     @DBRef(lazy = true)
     private List<Post> posts = new ArrayList<>();
+
+    //private List<CommentDTO> comments = new ArrayList<>();
 
     public User() {
 
@@ -65,6 +68,10 @@ public class User implements Serializable {
     public List<Post> getPosts() {
         return posts;
     }
+
+    /*public List<CommentDTO> getComments() {
+        return comments;
+    }*/
 
     @Override
     public String toString() {
